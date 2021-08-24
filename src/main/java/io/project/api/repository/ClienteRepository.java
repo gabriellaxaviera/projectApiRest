@@ -27,15 +27,31 @@ public class ClienteRepository {
     }
 
     public List<Cliente> obterTodos(){
-        return jdbcTemplate.query(SELECT_ALL, new RowMapper<Cliente>() {
-            @Override
-            public Cliente mapRow(ResultSet resultSet, int i) throws SQLException {
-                return new Cliente(resultSet.getString("nome"));
-            }
-        });
+        return jdbcTemplate.query(SELECT_ALL, obterClienteMapper());
     }
 
-    /*private RowMapper<Cliente> obterClienteMapper() {
+    public Cliente atualizar(Cliente cliente){
+        jdbcTemplate.update(UPDATE, new Object[]{
+                cliente.getNome(), cliente.getId()} );
+        return cliente;
+    }
+
+    public void deletar(Cliente cliente){
+        deletar(cliente.getId());
+    }
+
+    public void deletar(Integer id){
+        jdbcTemplate.update(DELETE, new Object[]{id});
+    }
+
+    public List<Cliente> buscarPorNome(String nome){
+        return jdbcTemplate.query(
+                SELECT_ALL.concat(" where nome like ? "),
+                new Object[]{"%" + nome + "%"}, //pedaco de nome, parte dele, inicio ou fim que estiver no banco
+                obterClienteMapper());
+    }
+
+    private RowMapper<Cliente> obterClienteMapper() {
         return new RowMapper<Cliente>() {
             @Override
             public Cliente mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -44,5 +60,5 @@ public class ClienteRepository {
                 return new Cliente(id, nome);
             }
         };
-    }*/
+    }
 }
