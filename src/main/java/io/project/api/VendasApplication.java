@@ -38,10 +38,10 @@ public class VendasApplication {
             System.out.println("Buscando clientes");
             clientes.buscarPorNome("Cli").forEach(System.out::println);
 
-//            System.out.println("Deletando clientes");
-//            clientes.obterTodos().forEach(c -> {
-//                clientes.deletar(c);
-//            });
+            System.out.println("Deletando clientes");
+            clientes.obterTodos().forEach(c -> {
+                clientes.deletar(c);
+            });
 
             System.out.println("Buscando todos");
             todosClientes = clientes.obterTodos();

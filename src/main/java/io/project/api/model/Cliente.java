@@ -1,8 +1,16 @@
 package io.project.api.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Cliente") //não obrigatório caso o nome da entidade seja o mesmo
 public class Cliente {
 
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
+
+    @Column(name = "nome", length = 100)
     private String nome;
 
     public Cliente() {
