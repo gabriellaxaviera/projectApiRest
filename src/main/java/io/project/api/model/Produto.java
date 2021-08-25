@@ -6,7 +6,9 @@ import javax.persistence.*;
 @Table
 public class Produto {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO) @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
     @Column

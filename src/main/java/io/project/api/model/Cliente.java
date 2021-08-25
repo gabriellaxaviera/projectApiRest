@@ -1,17 +1,22 @@
 package io.project.api.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Cliente") //não obrigatório caso o nome da entidade seja o mesmo
 public class Cliente {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 
     @Column(name = "nome", length = 100)
     private String nome;
+
+    @OneToMany(mappedBy = "cliente") // ONE cliente para MANY pedidos; mapped by a propriedade que que esta lidando com os pediso, no caso é cliente
+    private Set<Pedido> pedidos;
 
     public Cliente() {
     }
@@ -40,6 +45,14 @@ public class Cliente {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Set<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(Set<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     @Override
