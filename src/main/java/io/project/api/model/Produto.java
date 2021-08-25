@@ -1,8 +1,18 @@
 package io.project.api.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table
 public class Produto {
+
+    @Id @GeneratedValue(strategy = GenerationType.AUTO) @Column(name = "id")
     private Integer id;
+
+    @Column
     private String description;
+
+    @Column(name = "preco_unitario")
     private float preco;
 
     public Integer getId() {
