@@ -1,6 +1,6 @@
-package io.project.api.repository;
+package io.project.api.domain.repository;
 
-import io.project.api.model.Cliente;
+import io.project.api.domain.model.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -1,4 +1,4 @@
-package io.project.api.model;
+package io.project.api.domain.model;
 
 import lombok.Getter;
 import lombok.Setter;

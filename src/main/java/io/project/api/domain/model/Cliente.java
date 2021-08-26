@@ -1,5 +1,6 @@
-package io.project.api.model;
+package io.project.api.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +20,7 @@ public class Cliente {
     @Column(name = "nome", length = 100)
     private String nome;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     // ONE cliente para MANY pedidos;
     // mapped by a propriedade que que esta lidando com os pediso, no caso é cliente

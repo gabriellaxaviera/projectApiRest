@@ -1,7 +1,7 @@
-package io.project.api.repository;
+package io.project.api.domain.repository;
 
-import io.project.api.model.Cliente;
-import io.project.api.model.Pedido;
+import io.project.api.domain.model.Cliente;
+import io.project.api.domain.model.Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Set;
