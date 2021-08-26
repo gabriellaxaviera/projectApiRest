@@ -1,10 +1,14 @@
 package io.project.api.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "Cliente") //não obrigatório caso o nome da entidade seja o mesmo
+@Table(name = "cliente") //não obrigatório caso o nome da entidade seja o mesmo
+@Getter @Setter
 public class Cliente {
 
     @Id
@@ -15,44 +19,22 @@ public class Cliente {
     @Column(name = "nome", length = 100)
     private String nome;
 
-    @OneToMany(mappedBy = "cliente") // ONE cliente para MANY pedidos; mapped by a propriedade que que esta lidando com os pediso, no caso é cliente
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+    // ONE cliente para MANY pedidos;
+    // mapped by a propriedade que que esta lidando com os pediso, no caso é cliente
+    // não recomendado eager, para não pesar a consulta
     private Set<Pedido> pedidos;
 
     public Cliente() {
     }
 
     public Cliente(String nome) {
-        this.id = id;
         this.nome = nome;
     }
 
     public Cliente(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Set<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(Set<Pedido> pedidos) {
-        this.pedidos = pedidos;
     }
 
     @Override
