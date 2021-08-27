@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
@@ -25,7 +27,7 @@ public class ClienteController {
         if (clienteById.isPresent()) {
             return ResponseEntity.ok(clienteById.get());
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(NOT_FOUND).body("Cliente não encontrado");
     }
 
     @PostMapping
@@ -43,7 +45,7 @@ public class ClienteController {
             clienteRepository.delete(clienteById.get());
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(NOT_FOUND).body("Cliente não encontrado");
     }
 
     @PutMapping(value = "/{id}")
@@ -56,7 +58,7 @@ public class ClienteController {
                     clienteRepository.save(cliente);
                     return ResponseEntity.noContent().build();
                 })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.status(NOT_FOUND).body("Cliente não encontrado"));
     }
 
     @GetMapping
