@@ -1,12 +1,10 @@
 package io.project.api.api.controller;
 
-import io.project.api.domain.model.Cliente;
 import io.project.api.domain.model.Produto;
 import io.project.api.domain.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
