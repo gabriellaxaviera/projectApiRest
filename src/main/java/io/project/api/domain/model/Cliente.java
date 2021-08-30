@@ -2,6 +2,7 @@ package io.project.api.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "cliente") //não obrigatório caso o nome da entidade seja o mesmo
 @Getter @Setter
+@NoArgsConstructor
 public class Cliente {
 
     @Id
@@ -26,9 +28,6 @@ public class Cliente {
     // mapped by a propriedade que que esta lidando com os pediso, no caso é cliente
     // não recomendado eager, para não pesar a consulta
     private Set<Pedido> pedidos;
-
-    public Cliente() {
-    }
 
     public Cliente(String nome) {
         this.nome = nome;

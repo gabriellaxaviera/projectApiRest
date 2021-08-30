@@ -17,7 +17,7 @@ public class Produto {
     private Integer id;
 
     @Column
-    private String description;
+    private String descricao;
 
     @Column(name = "preco_unitario")
     private float preco;
