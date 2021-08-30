@@ -62,12 +62,12 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<?> find( Cliente filtro ){
+    public ResponseEntity<?> find(Cliente filtro) {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
                 .withStringMatcher(
-                        ExampleMatcher.StringMatcher.CONTAINING );
+                        ExampleMatcher.StringMatcher.CONTAINING);
 
         Example<Cliente> example = Example.of(filtro, matcher);
 
