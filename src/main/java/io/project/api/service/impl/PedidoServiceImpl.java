@@ -2,6 +2,7 @@ package io.project.api.service.impl;
 
 import io.project.api.api.dto.ItemPedidoDTO;
 import io.project.api.api.dto.PedidoDTO;
+import io.project.api.domain.enums.StatusPedido;
 import io.project.api.domain.model.Cliente;
 import io.project.api.domain.model.ItemPedido;
 import io.project.api.domain.model.Pedido;
@@ -9,6 +10,7 @@ import io.project.api.domain.model.Produto;
 import io.project.api.domain.repository.ClienteRepository;
 import io.project.api.domain.repository.ItemPedidoRepository;
 import io.project.api.domain.repository.ProdutoRepository;
+import io.project.api.exception.PedidoNaoEncontradoException;
 import io.project.api.exception.RegraNegocioException;
 import io.project.api.service.PedidoService;
 import io.project.api.domain.repository.PedidoRepository;
@@ -44,6 +46,7 @@ public class PedidoServiceImpl implements PedidoService {
         Pedido pedido = new Pedido();
         pedido.setTotal(pedidoDTO.getTotal());
         pedido.setDataPedido(LocalDate.now());
+        pedido.setStatus(StatusPedido.REALIZADO);
 
         Integer idCliente = pedidoDTO.getIdCliente();
         Cliente cliente = clienteRepository.findById(idCliente)
@@ -65,6 +68,16 @@ public class PedidoServiceImpl implements PedidoService {
     @Override
     public Optional<Pedido> obterPedidoCompleto(Integer id) {
         return pedidoRepository.findByIdFetchItens(id);
+    }
+
+    @Override
+    public void atualizaStatus(Integer id, StatusPedido statusPedido) {
+        pedidoRepository
+                .findById(id)
+                .map( pedido -> {
+                    pedido.setStatus(statusPedido);
+                    return pedidoRepository.save(pedido);
+                }).orElseThrow(() -> new PedidoNaoEncontradoException() );
     }
 
     private List<ItemPedido> converterItens(Pedido pedido, List<ItemPedidoDTO> itens){

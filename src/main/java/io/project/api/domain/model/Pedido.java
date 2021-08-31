@@ -1,5 +1,6 @@
 package io.project.api.domain.model;
 
+import io.project.api.domain.enums.StatusPedido;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,7 +31,9 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens;
 
-    private String status;
+    @Enumerated(EnumType.STRING) //para mapear no banco
+    @Column
+    private StatusPedido status;
 
     @Override
     public String toString() {

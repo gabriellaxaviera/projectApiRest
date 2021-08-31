@@ -1,9 +1,7 @@
 package io.project.api.api.controller;
 
-import io.project.api.api.dto.InfoItemPedidoDTO;
-import io.project.api.api.dto.InfoPedidoDTO;
-import io.project.api.api.dto.ItemPedidoDTO;
-import io.project.api.api.dto.PedidoDTO;
+import io.project.api.api.dto.*;
+import io.project.api.domain.enums.StatusPedido;
 import io.project.api.domain.model.ItemPedido;
 import io.project.api.domain.model.Pedido;
 import io.project.api.exception.RegraNegocioException;
@@ -42,6 +40,14 @@ public class PedidoController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "PEDIDO NÃO ENCONTRADO"));
     }
 
+    @PatchMapping("{id}") //para update parcial
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateStatusPedido(@PathVariable Integer id ,
+                                   @RequestBody AtualizacaoStatusPedidoDTO dto) {
+        String novoStatus = dto.getNovoStatus();
+        pedidoService.atualizaStatus(id, StatusPedido.valueOf(novoStatus));
+    }
+
     private InfoPedidoDTO converter(Pedido pedido){
         return InfoPedidoDTO
                 .builder()
@@ -51,7 +57,7 @@ public class PedidoController {
                 .nomeCliente(pedido.getCliente().getNome())
                 .total(pedido.getTotal())
                 .itens(converter(pedido.getItens()))
-                .status(pedido.getStatus())
+                .status(pedido.getStatus().name())
                 .build();
     }
 
