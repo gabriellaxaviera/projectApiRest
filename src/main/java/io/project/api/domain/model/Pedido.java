@@ -30,6 +30,8 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens;
 
+    private String status;
+
     @Override
     public String toString() {
         return "Pedido{" +

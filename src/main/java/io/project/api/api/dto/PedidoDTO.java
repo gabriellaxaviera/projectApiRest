@@ -13,5 +13,5 @@ public class PedidoDTO {
 
     private float total;
 
-    private List<ItemPedidoDTO> items;
+    private List<ItemPedidoDTO> itens;
 }
