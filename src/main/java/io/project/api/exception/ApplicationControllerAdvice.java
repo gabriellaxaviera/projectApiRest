@@ -14,4 +14,11 @@ public class ApplicationControllerAdvice {
         String mensagemErro = regraNegocioException.getMessage();
         return new ApiErrors(mensagemErro);
     }
+
+    @ExceptionHandler(RegraNegocioException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiErrors handlePedidoNotFoundException(PedidoNaoEncontradoException pedidoNaoEncontradoException) {
+        String mensagemErro = pedidoNaoEncontradoException.getMessage();
+        return new ApiErrors(mensagemErro);
+    }
 }
