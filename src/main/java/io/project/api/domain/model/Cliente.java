@@ -23,12 +23,12 @@ public class Cliente {
     private Integer id;
 
     @Column(name = "nome", length = 100)
-    @NotEmpty(message = "Campo nome é obrigatório.")
+    @NotEmpty(message = "{campo.nome.obrigatorio}")
     private String nome;
 
     @Column(name = "cpf", length = 11)
-    @NotEmpty(message = "Campo cpf é obrigatório.")
-    @CPF(message = "Informe um CPF válido.")
+    @NotEmpty(message = "{campo.cpf.obrigatorio}")
+    @CPF(message = "{campo.cpf.invalido}")
     private String cpf;
 
     @JsonIgnore
@@ -37,10 +37,6 @@ public class Cliente {
     // mapped by a propriedade que que esta lidando com os pediso, no caso é cliente
     // não recomendado eager, para não pesar a consulta
     private Set<Pedido> pedidos;
-
-    public Cliente(String nome) {
-        this.nome = nome;
-    }
 
     public Cliente(Integer id, String nome) {
         this.id = id;
