@@ -8,6 +8,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +32,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveCliente(@RequestBody Cliente cliente) {
+    public ResponseEntity<?> saveCliente(@RequestBody @Valid Cliente cliente) {
 
         Cliente clienteById = clienteRepository.save(cliente);
         return ResponseEntity.ok().body(clienteById);
@@ -49,7 +50,7 @@ public class ClienteController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> updateCliente(@PathVariable Integer id, @RequestBody Cliente cliente) {
+    public ResponseEntity<?> updateCliente(@PathVariable Integer id, @RequestBody @Valid Cliente cliente) {
 
         return clienteRepository
                 .findById(id)

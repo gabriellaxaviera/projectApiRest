@@ -8,6 +8,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,14 +22,14 @@ public class ProdutoController {
     ProdutoRepository produtoRepository;
 
     @PostMapping
-    public ResponseEntity<?> saveProduto(@RequestBody Produto produto) {
+    public ResponseEntity<?> saveProduto(@RequestBody @Valid Produto produto) {
 
         Produto produtoById = produtoRepository.save(produto);
         return ResponseEntity.ok().body(produtoById);
     }
 
     @PutMapping(value = "{id}")
-    public ResponseEntity<?> updateProduto(@PathVariable Integer id, @RequestBody Produto produto) {
+    public ResponseEntity<?> updateProduto(@PathVariable Integer id, @RequestBody @Valid Produto produto) {
 
         return produtoRepository
                 .findById(id)

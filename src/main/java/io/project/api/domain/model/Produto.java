@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table
@@ -17,8 +19,10 @@ public class Produto {
     private Integer id;
 
     @Column
+    @NotEmpty(message = "Campo descrição é obrigatório")
     private String descricao;
 
     @Column(name = "preco_unitario")
+    @NotNull(message = "Campo preço é obrigatório")
     private float preco;
 }

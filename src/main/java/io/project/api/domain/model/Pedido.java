@@ -35,12 +35,4 @@ public class Pedido {
     @Column
     private StatusPedido status;
 
-    @Override
-    public String toString() {
-        return "Pedido{" +
-                "id=" + id +
-                ", dataPedido=" + dataPedido +
-                ", total=" + total +
-                '}';
-    }
 }
