@@ -1,5 +1,8 @@
 package io.project.api.config;
 
+import io.project.api.service.impl.UsuarioServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -10,6 +13,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    UsuarioServiceImpl usuarioService;
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         //pacote de pass encoder bcrypt
         return new BCryptPasswordEncoder();
@@ -17,15 +24,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override //autenticacao, user e senha
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()//usuario em memoria
-                .passwordEncoder(passwordEncoder())
-                .withUser("Fulano").password(passwordEncoder().encode("123"))
-                .roles("user") //perfil de usuario
-        ;
+        auth.userDetailsService(usuarioService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Override //autorizacao, usuario autenticado tem autorização ou nao para metodos
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/api/clientes/**")
+                .hasAnyRole("USER", "ADMIN")
+                .antMatchers("/api/produtos/**")
+                .hasAnyRole("USER", "ADMIN")
+                .antMatchers("/api/pedidos/**")
+                .hasAnyRole("USER", "ADMIN")
+                .and()
+                .httpBasic();
     }
 }
