@@ -41,6 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST,"/api/usuario")
                 .permitAll()
+                .antMatchers("/h2-console/**")
+                .permitAll()
                 .anyRequest().authenticated() //caso nao tenha mapeado outras urls
                 .and()
                 .httpBasic();
