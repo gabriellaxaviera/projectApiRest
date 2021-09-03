@@ -8,8 +8,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -17,13 +20,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UsuarioServiceImpl usuarioService;
 
+    @Autowired
+    private JWTService jwtService;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         //pacote de pass encoder bcrypt
         return new BCryptPasswordEncoder();
     }
 
-    @Override //autenticacao, user e senha
+    @Bean
+    public OncePerRequestFilter jwtFilter(){
+        return new JWTAuthFilter(jwtService, usuarioService);
+    }
+
+    @Override //autenticacao, user e senha -> desnecessario com filtro jwt
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(usuarioService)
                 .passwordEncoder(passwordEncoder());
@@ -34,17 +45,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/clientes/**")
-                .hasAnyRole("USER", "ADMIN")
+                    .hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/produtos/**")
-                .hasAnyRole("USER", "ADMIN")
+                    .hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/pedidos/**")
-                .hasAnyRole("USER", "ADMIN")
+                    .hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST,"/api/usuario")
-                .permitAll()
+                    .permitAll()
                 .antMatchers("/h2-console/**")
-                .permitAll()
+                    .permitAll()
                 .anyRequest().authenticated() //caso nao tenha mapeado outras urls
                 .and()
-                .httpBasic();
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
