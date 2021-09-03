@@ -1,7 +1,7 @@
 package io.project.api.service.impl;
 
-import io.project.api.api.dto.ItemPedidoDTO;
-import io.project.api.api.dto.PedidoDTO;
+import io.project.api.rest.dto.ItemPedidoDTO;
+import io.project.api.rest.dto.PedidoDTO;
 import io.project.api.domain.enums.StatusPedido;
 import io.project.api.domain.model.Cliente;
 import io.project.api.domain.model.ItemPedido;

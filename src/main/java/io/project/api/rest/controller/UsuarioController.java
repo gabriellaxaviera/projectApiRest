@@ -1,4 +1,4 @@
-package io.project.api.api.controller;
+package io.project.api.rest.controller;
 
 import io.project.api.domain.model.Usuario;
 import io.project.api.service.impl.UsuarioServiceImpl;
