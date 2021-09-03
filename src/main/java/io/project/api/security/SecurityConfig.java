@@ -1,4 +1,4 @@
-package io.project.api.config;
+package io.project.api.security;
 
 import io.project.api.service.impl.UsuarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
