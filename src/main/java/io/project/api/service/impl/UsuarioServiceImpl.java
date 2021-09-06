@@ -2,6 +2,7 @@ package io.project.api.service.impl;
 
 import io.project.api.domain.model.Usuario;
 import io.project.api.domain.repository.UsuarioRepository;
+import io.project.api.exception.InvalidPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,5 +37,14 @@ public class UsuarioServiceImpl implements UserDetailsService {
     @Transactional
     public void salvarUsuarioNoBanco(Usuario usuario) {
         usuarioRepository.save(usuario);
+    }
+
+    public UserDetails autenticar(Usuario usuario){
+        UserDetails userDetails = loadUserByUsername(usuario.getLogin());
+        boolean validPassword = encoder.matches(usuario.getSenha(), userDetails.getPassword());
+        if(validPassword){
+            return userDetails;
+        }
+        throw new InvalidPasswordException("Senha incorreta");
     }
 }
