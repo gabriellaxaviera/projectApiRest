@@ -31,19 +31,20 @@ public class JWTAuthFilter extends OncePerRequestFilter {
         String authorization = httpServletRequest.getHeader("Authorization");
 
         if (authorization != null && authorization.startsWith("Bearer")) {
+
             String token = authorization.split(" ")[1]; //posicao 1 representa o token após o nome bearer
+            boolean isValid = jwtService.tokenIsValid(token);
 
-            if (jwtService.tokenIsValid(token)) {
+            if (isValid) {
                 String loginUsuario = jwtService.obterLoginUsuario(token);
-
                 UserDetails userByUsername = usuarioService.loadUserByUsername(loginUsuario);//busca usuario no banco com suas roles
+
                 //incluir o usuario no contexto do spring security
                 UsernamePasswordAuthenticationToken user =
                         new UsernamePasswordAuthenticationToken
                                 (userByUsername, null, userByUsername.getAuthorities());
                 //indicando que é uma autenticacao de aplicacao web
-                user.setDetails(new WebAuthenticationDetailsSource()
-                        .buildDetails(httpServletRequest));
+                user.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                 //contexto do spring
                 SecurityContextHolder.getContext().setAuthentication(user);
             }

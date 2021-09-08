@@ -20,6 +20,7 @@ public class JWTService {
 
     @Value("${security.jwt.expiracao}")
     private String expiracao;
+
     @Value("${security.jwt.chave-assinatura}")
     private String chaveAssinatura;
 
@@ -46,7 +47,8 @@ public class JWTService {
         try{
             Claims claims = obterClaims(token);
             Date dateExpiracao = claims.getExpiration();
-            LocalDateTime localDateTime = dateExpiracao.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            LocalDateTime localDateTime = dateExpiracao
+                    .toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 
             return !LocalDateTime.now().isAfter(localDateTime);
         } catch (Exception exception){

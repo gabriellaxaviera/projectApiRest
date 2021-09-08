@@ -9,7 +9,6 @@ import java.util.List;
 public class NotEmptyListValidator implements ConstraintValidator<NotEmptyList, List> {
     @Override
     public void initialize(NotEmptyList constraintAnnotation) {
-        ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
     @Override

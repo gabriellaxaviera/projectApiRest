@@ -3,8 +3,10 @@ package io.project.api.security;
 import io.project.api.service.impl.UsuarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,18 +19,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    UsuarioServiceImpl usuarioService;
-
+    private UsuarioServiceImpl usuarioService;
     @Autowired
     private JWTService jwtService;
 
-    private static final String[] PUBLIC_PATHS = {"/api/usuario/**", "/h2-console/**", "/swagger-ui.html/**",
-            "/webjars/**", "/swagger-resources/**"};
-
-
     @Bean
     public PasswordEncoder passwordEncoder() {
-        //pacote de pass encoder bcrypt
         return new BCryptPasswordEncoder();
     }
 
@@ -37,29 +33,42 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new JWTAuthFilter(jwtService, usuarioService);
     }
 
-    @Override //autenticacao, user e senha -> desnecessario com filtro jwt
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(usuarioService)
                 .passwordEncoder(passwordEncoder());
     }
 
-    @Override //autorizacao, usuario autenticado tem autorização ou nao para metodos
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        http.csrf().disable()
+        http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/clientes/**")
                 .hasAnyRole("USER", "ADMIN")
-                .antMatchers("/api/produtos/**")
-                .hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/pedidos/**")
                 .hasAnyRole("USER", "ADMIN")
-                .antMatchers(PUBLIC_PATHS).permitAll()
-                .anyRequest().authenticated() //caso nao tenha mapeado outras urls
+                .antMatchers("/api/produtos/**")
+                .hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/usuarios/**")
+                .permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
+        ;
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(
+                "/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**");
     }
 }
