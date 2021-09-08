@@ -32,7 +32,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="eae38baf-535f-4074-87fe-6f115786b5ef">
-      <console name="Connection" type="STANDARD" schema="vendas" session="Main"><![CDATA[select * from item_pedido;]]></console>
+      <console name="Connection" type="STANDARD" schema="vendas" session="Main"><![CDATA[select * from usuario;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
@@ -48,7 +48,7 @@
     <retain-sticky-names value="false" />
   </component>
   <component name="DBNavigator.Project.FileConnectionMappingManager">
-    <mapping file-url="file://$PROJECT_DIR$/src/main/resources/data.sql" connection-id="eae38baf-535f-4074-87fe-6f115786b5ef" session-id="MAIN" current-schema="vendas" />
+    <mapping file-url="file://$PROJECT_DIR$/src/main/resources/my_schema.sql" connection-id="eae38baf-535f-4074-87fe-6f115786b5ef" session-id="MAIN" current-schema="vendas" />
   </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
