@@ -12,7 +12,7 @@ import java.util.Locale;
 public class InternacionalizacaoConfig {
 
     @Bean //fonte de mensagens do sistema
-    public MessageSource messageSource(){
+    public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:message"); //classpath da aplicacao e nome do arquivo
         messageSource.setDefaultEncoding("ISO-8859-1"); //codificacao que reconhece acentos e cedilha
@@ -21,7 +21,7 @@ public class InternacionalizacaoConfig {
     }
 
     @Bean
-    public LocalValidatorFactoryBean validatorFactoryBean(){
+    public LocalValidatorFactoryBean validatorFactoryBean() {
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
         bean.setValidationMessageSource(messageSource());
         return bean;

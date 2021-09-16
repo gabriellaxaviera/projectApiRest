@@ -20,7 +20,7 @@ import java.util.List;
 public class SwaggerConfig {
 
     @Bean
-    public Docket docket(){
+    public Docket docket() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .useDefaultResponseMessages(false)
                 .select()
@@ -33,7 +33,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo());
     }
 
-    private ApiInfo apiInfo(){
+    private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Vendas API")
                 .description("Api do projeto de Vendas")
@@ -42,24 +42,24 @@ public class SwaggerConfig {
                 .build();
     }
 
-    private Contact contact(){
+    private Contact contact() {
         return new Contact("Gabriella Xavier"
                 , "http://github.com/gabriellaxaviera",
                 "axavierga@gmail.com");
     }
 
-    public ApiKey apiKey(){
+    public ApiKey apiKey() {
         return new ApiKey("JWT", "Authorization", "header");
     }
 
-    private SecurityContext securityContext(){
+    private SecurityContext securityContext() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
                 .forPaths(PathSelectors.any())
                 .build();
     }
 
-    private List<SecurityReference> defaultAuth(){
+    private List<SecurityReference> defaultAuth() {
         AuthorizationScope authorizationScope = new AuthorizationScope(
                 "global", "accessEverything");
         AuthorizationScope[] scopes = new AuthorizationScope[1];

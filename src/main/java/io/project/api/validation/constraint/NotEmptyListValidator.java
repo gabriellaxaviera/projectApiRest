@@ -13,6 +13,6 @@ public class NotEmptyListValidator implements ConstraintValidator<NotEmptyList, 
 
     @Override
     public boolean isValid(List list, ConstraintValidatorContext constraintValidatorContext) {
-        return list!= null && !list.isEmpty();
+        return list != null && !list.isEmpty();
     }
 }
