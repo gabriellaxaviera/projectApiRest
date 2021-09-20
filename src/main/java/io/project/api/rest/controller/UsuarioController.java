@@ -20,7 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/api/usuarios/")
 public class UsuarioController {
 
     @Autowired
@@ -40,7 +40,7 @@ public class UsuarioController {
         return ResponseEntity.status(201).build();
     }
 
-    @PostMapping("/auth")
+    @PostMapping("auth")
     public ResponseEntity<TokenDTO> autenticar(@RequestBody CredentialsDTO credentialsDTO) {
         try {
             Usuario usuario = Usuario.builder()

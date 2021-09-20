@@ -44,20 +44,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/clientes/**")
-                .hasAnyRole("USER", "ADMIN")
-                .antMatchers("/api/pedidos/**")
-                .hasAnyRole("USER", "ADMIN")
-                .antMatchers("/api/produtos/**")
-                .hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/api/usuarios/**")
-                .permitAll()
-                .anyRequest().authenticated()
+                    .antMatchers("/api/clientes/**")
+                        .hasAnyRole("USER", "ADMIN")
+                    .antMatchers("/api/pedidos/**")
+                        .hasAnyRole("USER", "ADMIN")
+                    .antMatchers("/api/produtos/**")
+                        .hasRole("ADMIN")
+                    .antMatchers(HttpMethod.POST, "/api/usuarios/**")
+                        .permitAll()
+                    .anyRequest().authenticated()
                 .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
+                    .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

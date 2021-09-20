@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/pedidos")
+@RequestMapping("/api/pedidos/")
 public class PedidoController {
 
     @Autowired
@@ -34,14 +34,14 @@ public class PedidoController {
         return ResponseEntity.status(200).body(salvarPedido.getId());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public InfoPedidoDTO getInfosPedidoById(@PathVariable Integer id) {
         return pedidoService.obterPedidoCompleto(id)
                 .map(p -> converter(p))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "PEDIDO NÃO ENCONTRADO"));
     }
 
-    @PatchMapping("/{id}") //para update parcial
+    @PatchMapping("{id}") //para update parcial
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateStatusPedido(@PathVariable Integer id,
                                    @RequestBody AttStatusPedidoDTO dto) {
