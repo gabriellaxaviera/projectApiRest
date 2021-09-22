@@ -1,9 +1,9 @@
-package io.project.api.api.controller;
+package io.project.api.rest.controller;
 
-import io.project.api.api.dto.AttStatusPedidoDTO;
-import io.project.api.api.dto.InfoItemPedidoDTO;
-import io.project.api.api.dto.InfoPedidoDTO;
-import io.project.api.api.dto.PedidoDTO;
+import io.project.api.rest.dto.AttStatusPedidoDTO;
+import io.project.api.rest.dto.InfoItemPedidoDTO;
+import io.project.api.rest.dto.InfoPedidoDTO;
+import io.project.api.rest.dto.PedidoDTO;
 import io.project.api.domain.enums.StatusPedido;
 import io.project.api.domain.model.ItemPedido;
 import io.project.api.domain.model.Pedido;

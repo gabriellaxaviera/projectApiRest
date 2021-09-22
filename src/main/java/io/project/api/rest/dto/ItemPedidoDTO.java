@@ -1,4 +1,4 @@
-package io.project.api.api.dto;
+package io.project.api.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
