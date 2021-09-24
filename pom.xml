@@ -66,8 +66,12 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
-    </dependencies>
 
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -77,6 +81,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>

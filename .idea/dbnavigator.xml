@@ -24,24 +24,36 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="df30b572-16ae-48e6-9523-224d754ed8b5">
+        <schema name="sys" object-types="table, view" />
+        <schema name="vendas" object-types="table, view, procedure, function, constraint, index, column, dataset trigger" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="eae38baf-535f-4074-87fe-6f115786b5ef">
-      <console name="Connection" type="STANDARD" schema="vendas" session="Main">select * from cliente;</console>
+    <connection id="df30b572-16ae-48e6-9523-224d754ed8b5">
+      <console name="Connection 1" type="STANDARD" schema="vendas" session="Main"><![CDATA[select * from usuarios]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="eae38baf-535f-4074-87fe-6f115786b5ef" />
+    <connection id="df30b572-16ae-48e6-9523-224d754ed8b5" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="df30b572-16ae-48e6-9523-224d754ed8b5" dataset="vendas.usuario" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="df30b572-16ae-48e6-9523-224d754ed8b5" dataset="vendas.cliente" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
+  </component>
+  <component name="DBNavigator.Project.FileConnectionMappingManager">
+    <mapping file-url="file://$PROJECT_DIR$/src/main/resources/old_schema.sql" connection-id="df30b572-16ae-48e6-9523-224d754ed8b5" session-id="MAIN" current-schema="vendas" />
   </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
@@ -59,21 +71,23 @@
     <filters />
   </component>
   <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
-    <recently-used-interfaces />
+    <recently-used-interfaces>
+      <mapping database-type="MYSQL" interface-id="DEFAULT" />
+    </recently-used-interfaces>
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="eae38baf-535f-4074-87fe-6f115786b5ef" active="true">
+      <connection id="df30b572-16ae-48e6-9523-224d754ed8b5" active="true">
         <database>
-          <name value="Connection" />
-          <description value="vendas" />
+          <name value="Connection 1" />
+          <description value="" />
           <database-type value="MYSQL" />
           <config-type value="CUSTOM" />
           <database-version value="5.7" />
           <driver-source value="BUILTIN" />
           <driver-library value="" />
           <driver value="" />
-          <url value="jdbc:mysql://localhost:3306/vendas?serverTimezone=UTC" />
+          <url value="jdbc:mysql://localhost:3306/mysql?serverTimezone=UTC" />
           <type value="USER_PASSWORD" />
           <user value="root" />
           <deprecated-pwd value="cm9vdA==" />
