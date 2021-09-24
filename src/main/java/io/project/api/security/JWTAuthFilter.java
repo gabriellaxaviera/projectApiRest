@@ -1,6 +1,10 @@
 package io.project.api.security;
 
 import io.project.api.service.impl.UsuarioServiceImpl;
+<<<<<<< HEAD
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> feature/initSecurity
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,32 +28,27 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal
-            (HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest httpServletRequest,
+                                    HttpServletResponse httpServletResponse,
+                                    FilterChain filterChain) throws ServletException, IOException {
 
         String authorization = httpServletRequest.getHeader("Authorization");
 
         if (authorization != null && authorization.startsWith("Bearer")) {
-
-            String token = authorization.split(" ")[1]; //posicao 1 representa o token após o nome bearer
-            boolean isValid = jwtService.tokenIsValid(token);
+            String token = authorization.split(" ")[1];
+            boolean isValid = jwtService.tokenValido(token);
 
             if (isValid) {
                 String loginUsuario = jwtService.obterLoginUsuario(token);
-                UserDetails userByUsername = usuarioService.loadUserByUsername(loginUsuario);//busca usuario no banco com suas roles
-
-                //incluir o usuario no contexto do spring security
-                UsernamePasswordAuthenticationToken user =
-                        new UsernamePasswordAuthenticationToken
-                                (userByUsername, null, userByUsername.getAuthorities());
-                //indicando que é uma autenticacao de aplicacao web
+                UserDetails usuario = usuarioService.loadUserByUsername(loginUsuario);
+                UsernamePasswordAuthenticationToken user = new
+                        UsernamePasswordAuthenticationToken(usuario, null,
+                        usuario.getAuthorities());
                 user.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
-                //contexto do spring
                 SecurityContextHolder.getContext().setAuthentication(user);
             }
-
-            filterChain.doFilter(httpServletRequest, httpServletResponse);
         }
+
+        filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 }
