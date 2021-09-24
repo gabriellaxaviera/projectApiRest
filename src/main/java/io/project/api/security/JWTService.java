@@ -4,11 +4,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.project.api.VendasApplication;
 import io.project.api.domain.model.Usuario;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -63,15 +60,4 @@ public class JWTService {
     public String obterLoginUsuario(String token) throws ExpiredJwtException {
         return obterClaims(token).getSubject();
     }
-/*
-    public static void main(String[] args) {
-        ConfigurableApplicationContext context = SpringApplication.run(VendasApplication.class);
-        JWTService service = context.getBean(JWTService.class);
-        Usuario usuario = Usuario.builder().login("fulano").build();
-        String token = service.gerarToken(usuario);
-        System.out.println(token);
-
-        System.out.println("O token é valido? " + service.tokenValido(token));
-        System.out.println("Usuario: " + service.obterLoginUsuario(token));
-    }*/
 }

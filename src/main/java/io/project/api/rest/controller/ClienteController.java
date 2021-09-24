@@ -15,13 +15,13 @@ import java.util.Optional;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
-@RequestMapping("/api/clientes/")
+@RequestMapping("/api/clientes")
 public class ClienteController {
 
     @Autowired
     ClienteRepository clienteRepository;
 
-    @GetMapping(value = "{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<?> getClienteById(@PathVariable Integer id) {
         Optional<Cliente> clienteById = clienteRepository.findById(id);
 
@@ -38,7 +38,7 @@ public class ClienteController {
         return ResponseEntity.ok().body(clienteById);
     }
 
-    @DeleteMapping(value = "{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> deleteClienteById(@PathVariable Integer id) {
         Optional<Cliente> clienteById = clienteRepository.findById(id);
 
@@ -49,7 +49,7 @@ public class ClienteController {
         return ResponseEntity.status(NOT_FOUND).body("Cliente não encontrado");
     }
 
-    @PutMapping(value = "{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<?> updateCliente(@PathVariable Integer id, @RequestBody @Valid Cliente cliente) {
 
         return clienteRepository

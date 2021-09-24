@@ -15,7 +15,7 @@ import java.util.Optional;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
-@RequestMapping("/api/produtos/")
+@RequestMapping("/api/produtos")
 public class ProdutoController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class ProdutoController {
         return ResponseEntity.ok().body(produtoById);
     }
 
-    @PutMapping(value = "{id}")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<?> updateProduto(@PathVariable Integer id, @RequestBody @Valid Produto produto) {
 
         return produtoRepository
@@ -41,7 +41,7 @@ public class ProdutoController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping(value = "{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> deleteProdutoById(@PathVariable Integer id) {
         Optional<Produto> clienteById = produtoRepository.findById(id);
 
@@ -52,7 +52,7 @@ public class ProdutoController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping(value = "{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<?> getProdutoById(@PathVariable Integer id) {
         Optional<Produto> clienteById = produtoRepository.findById(id);
 
